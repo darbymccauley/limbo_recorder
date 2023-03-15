@@ -29,10 +29,10 @@ typedef struct ana_settings{
 
 // this is for telescope settings
 typedef struct telescope_settings{
-    char TARGET_RA_DEG[COORD_LEN];
-    char TARGET_DEC_DEG[COORD_LEN];
-    double POINTING_AZ_DEG;
+    char TARGET_RA[COORD_LEN];
+    char TARGET_DEC[COORD_LEN];
     double POINTING_EL_DEG;
+    double POINTING_AZ_DEG;
     double POINTING_UPDATED;
 }telescope_settings_t;
 
