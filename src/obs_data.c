@@ -13,30 +13,30 @@ int write_header(obs_header_t *obs_header){
     fwrite(&(obs_header->HDRSIZE), sizeof(unsigned int), 1, fp);
     // write json header to the file
     fprintf(fp, "{\n");
-    fprintf(fp, " \"SWVer\":\"%s\",      \
+    fprintf(fp, " \"sw_ver\":\"%s\",      \
                   \"fpg\": \"%s\",       \
-                  \"Time\": %10f,        \
-                  \"SampleFreq\": %4u,   \
-                  \"AccLen\": %4u,       \
-                  \"AdcCoarseGain\": %4u,\
-                  \"FFTShift\": %5u,     \
-                  \"DataSel\": %4u,      \
-                  \"Scaling\": %4u,      \
-                  \"SpecCoeff\": %4u,    \
-                  \"AdcDelay0\": %4u,    \
-                  \"AdcDelay1\": %4u,    \
-                  \"AdcDelay2\": %4u,    \
-                  \"AdcDelay3\": %4u,    \
-                  \"AdcDelay4\": %4u,    \
-                  \"AdcDelay5\": %4u,    \
-                  \"AdcDelay6\": %4u,    \
-                  \"AdcDelay7\": %4u,     \
-                  \"RF_Lo_Hz\" : %10u,    \
-                  \"Target_RA_Deg\":\"%s\",  \
-                  \"Target_EL_Deg\":\"%s\",  \
-                  \"Pointing_AZ\": %2.2f,    \
-                  \"Pointing_EL\": %2.2f,    \
-                  \"Pointing_Updated\": %10f \
+                  \"time\": %10f,        \
+                  \"sample_freq\": %4u,   \
+                  \"acclen\": %4u,       \
+                  \"adc_coarse_gain\": %4u,\
+                  \"fft_shift\": %5u,     \
+                  \"data_sel\": %4u,      \
+                  \"scaling\": %4u,      \
+                  \"spec_coeff\": %4u,    \
+                  \"adc_delay_0\": %4u,    \
+                  \"adc_delay_1\": %4u,    \
+                  \"adc_delay_2\": %4u,    \
+                  \"adc_delay_3\": %4u,    \
+                  \"adc_delay_4\": %4u,    \
+                  \"adc_delay_5\": %4u,    \
+                  \"adc_delay_6\": %4u,    \
+                  \"adc_delay_7\": %4u,     \
+                  \"rf_lo_hz\" : %10u,    \
+                  \"target_ra\":\"%s\",  \
+                  \"target_dec\":\"%s\",  \
+                  \"pointing_el\": %2.2f,    \
+                  \"pointing_az\": %2.2f,    \
+                  \"pointing_updated\": %10f \
                 }", obs_header->SWVER,      \
                     obs_header->FPG,        \
                     obs_header->TIME,       \
@@ -58,8 +58,8 @@ int write_header(obs_header_t *obs_header){
                     obs_header->RF_LO_HZ,   \
                     obs_header->TARGET_RA_DEG,\
                     obs_header->TARGET_DEC_DEG,\
-                    obs_header->POINTING_AZ_DEG,\
                     obs_header->POINTING_EL_DEG,\
+                    obs_header->POINTING_AZ_DEG,\
                     obs_header->POINTING_UPDATED
                     );
     // we use the first HDR_SIZE bytes for header
