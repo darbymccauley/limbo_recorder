@@ -89,21 +89,21 @@ int get_obs_info_from_redis(obs_settings_t * obs_settings,
 	// Get observatory data
     char query_string[2048] = {0};
     // get digial settings from redis database
-    sprintf(query_string, "hmget %s %s", DIGITAL_KEY, "TimeStamp    \
-                                                       SampleFreq   \
-                                                       AccLen       \
-                                                       AdcCoarseGain\
-                                                       FFTShift     \
-                                                       Scaling      \
-                                                       SpecCoeff    \
-                                                       AdcDelay0    \
-                                                       AdcDelay1    \
-                                                       AdcDelay2    \
-                                                       AdcDelay3    \
-                                                       AdcDelay4    \
-                                                       AdcDelay5    \
-                                                       AdcDelay6    \
-                                                       AdcDelay7    \
+    sprintf(query_string, "hmget %s %s", DIGITAL_KEY, "time    \
+                                                       sample_freq   \
+                                                       acclen       \
+                                                       adc_course_gain\
+                                                       fft_shift     \
+                                                       scaling      \
+                                                       spec_coeff    \
+                                                       adc_delay_0    \
+                                                       adc_delay_1    \
+                                                       adc_delay_2    \
+                                                       adc_delay_3    \
+                                                       adc_delay_4    \
+                                                       adc_delay_5    \
+                                                       adc_delay_6    \
+                                                       adc_delay_7    \
                                                        fpg          \
                                                        data_sel");
     if(!rv) rv = redis_get(c_observatory, &reply, query_string);
@@ -131,7 +131,7 @@ int get_obs_info_from_redis(obs_settings_t * obs_settings,
 
     // get analog settings
     memset(query_string, 0, 2048);
-    sprintf(query_string, "hmget %s %s", ANALOG_KEY, "RF_Lo_Hz");
+    sprintf(query_string, "hmget %s %s", ANALOG_KEY, "rf_lo_hz");
     if(!rv) rv = redis_get(c_observatory, &reply, query_string);
     if(!rv)
     {
@@ -140,20 +140,20 @@ int get_obs_info_from_redis(obs_settings_t * obs_settings,
 
     //get telescope settings
     memset(query_string, 0, 2048);
-    sprintf(query_string, "hmget %s %s", TELESCOPE_KEY, "Target_RA_Deg  \
-                                                         Target_DEC_Deg \
-                                                         Pointing_AZ \
-                                                         Pointing_EL \
-                                                         Pointing_Updated");
+    sprintf(query_string, "hmget %s %s", TELESCOPE_KEY, "target_ra  \
+                                                         target_dec \
+                                                         pointing_el \
+                                                         pointing_az \
+                                                         pointing_updated");
     if(!rv) rv = redis_get(c_observatory, &reply, query_string);
     if(!rv)
     {
-        memset(telescope_settings->TARGET_RA_DEG,0,COORD_LEN);
-        memset(telescope_settings->TARGET_DEC_DEG,0,COORD_LEN);
-        memcpy(telescope_settings->TARGET_RA_DEG, reply->element[0]->str, reply->element[0]->len);
-        memcpy(telescope_settings->TARGET_DEC_DEG, reply->element[1]->str, reply->element[1]->len);
-        telescope_settings->POINTING_AZ_DEG = atof(reply->element[2]->str);
-        telescope_settings->POINTING_EL_DEG = atof(reply->element[3]->str);
+        memset(telescope_settings->TARGET_RA,0,COORD_LEN);
+        memset(telescope_settings->TARGET_DEC,0,COORD_LEN);
+        memcpy(telescope_settings->TARGET_RA, reply->element[0]->str, reply->element[0]->len);
+        memcpy(telescope_settings->TARGET_DEC, reply->element[1]->str, reply->element[1]->len);
+        telescope_settings->POINTING_EL_DEG = atof(reply->element[2]->str);
+        telescope_settings->POINTING_AZ_DEG = atof(reply->element[3]->str);
         telescope_settings->POINTING_UPDATED = atof(reply->element[4]->str);
     }
     freeReplyObject(reply);
