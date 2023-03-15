@@ -22,8 +22,8 @@ typedef struct obs_header{
     unsigned int SPECCOEFF;
     unsigned int ADCDELAY[8];
     unsigned int RF_LO_HZ;
-    char TARGET_RA_DEG[COORD_LEN];
-    char TARGET_DEC_DEG[COORD_LEN];
+    char TARGET_RA[COORD_LEN];
+    char TARGET_DEC[COORD_LEN];
     double POINTING_EL_DEG;
     double POINTING_AZ_DEG;
     double POINTING_UPDATED;
